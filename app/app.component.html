@@ -1,0 +1,45 @@
+<h1>{{name}}</h1>
+
+<form>
+<table>
+  <thead>
+    <tr>
+      <th><input type="number" name="id" [(ngModel)]="filter.id" min="1" [attr.max]="[numberOfBooks]" step="1" placeholder="Id"></th>
+      <th><input type="text" name="title" [(ngModel)]="filter.title" placeholder="Title"></th>
+      <th><input type="text" name="author" [(ngModel)]="filter.author" placeholder="Author"></th>
+      <th><input type="number" name="year" [(ngModel)]="filter.year" [attr.min]="minYear" [attr.max]="[maxYear]" step="1" placeholder="Year"></th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="4">
+        <label for="limit">Limit: </label><input type="number" name="limit" [(ngModel)]="limit" min="1" [attr.max]="[numberOfBooks]" step="1" placeholder="Limit">
+        <label for="page">Page: </label><input type="number" name="page" [(ngModel)]="page" min="1" [attr.max]="[numberOfBooks]" step="1" placeholder="Page">
+      </td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <tr *ngFor="let book of books | bookfilter:filter | slice:(page-1)*limit:page*limit">
+      <td>{{book.id}}</td>
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.year}}</td>
+    </tr>
+  </tbody>
+</table>
+</form>
+
+<footer>
+  <p>
+    <em>
+    Ps. since this is just a demo of pipes, the limit and page max attribute is just set to match the number of books in the books.json file.<br>
+    Like a paper notebook, you'll get blank pages when going beyond the unwritten pages ;o)
+    </em>
+  </p>
+  References:
+  <ul>
+    <li><a href="https://stackoverflow.com/questions/34164413/how-to-apply-filters-to-ngfor/">stackoverflow.com/questions/34164413/how-to-apply-filters-to-ngfor/</a></li>
+    <li><a href="https://angular.io/docs/ts/latest/guide/pipes.html">angular.io/docs/ts/latest/guide/pipes.html</a></li>
+    <li><a href="https://angular.io/docs/ts/latest/api/common/index/SlicePipe-pipe.html">angular.io/docs/ts/latest/api/common/index/SlicePipe-pipe.html</a></li>
+  </ul>
+</footer>
